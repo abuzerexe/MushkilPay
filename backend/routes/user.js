@@ -1,6 +1,6 @@
 const express = require("express");
 const z = require("zod")
-const User = require("../db");
+const {User,Account} = require("../db");
 const jwt = require("jsonwebtoken");
 const secret = require("../config")
 const authMiddleware = require("../middleware")
@@ -17,47 +17,62 @@ const signupSchema = z.object({
 router.post("/signup",async (req,res)=>{
     const body = req.body;
 
-const ans = signupSchema.safeParse(body);
+    const ans = signupSchema.safeParse(body);
 
-    if(!ans.success){
-        return res.status(411).json({
-            message : "Invalid Inputs"
+        if(!ans.success){
+            return res.status(411).json({
+                message : "Invalid Inputs"
+            })
+        }
+
+    const existingUser = await User.findOne({
+        username : body.username
+
+    })
+
+    if(existingUser){
+        return req.status(411).json({
+            message : "Email already taken."
         })
     }
 
-const existingUser = await User.findOne({
-    username : body.username
 
-})
-
-if(existingUser){
-    return req.status(411).json({
-        message : "Email already taken."
-    })
-}
-
-
-    const user = await User.create({
-        username : body.username,
-        password : body.password,
-        firstName : body.firstName,
-        lastName : body.lastName
-    })
-
-    if(!user){
-        return res.status(411).json({
-            message: e
+        const user = await User.create({
+            username : body.username,
+            password : body.password,
+            firstName : body.firstName,
+            lastName : body.lastName
         })
-    }
 
-    const userId = user._id;
+        if(!user){
+            return res.status(411).json({
+                message: "Error"
+            })
+        }
 
-    const token = jwt.sign(userId,secret)
+        const userId = user._id;
 
-     res.json({
-        message : "User created successfully.",
-        token : token
-    })
+        
+        const account = await Account.create({
+            userId : userId,
+            balance : (1+ Math.random()*10000)
+
+        })
+
+        if(!account){
+            return res.status(411).json({
+                message: "Error"
+            })
+        }
+        
+
+
+        const token = jwt.sign(userId,secret)
+
+        res.json({
+            message : `User created successfully with initial balance of Rs.${account.balance}`,
+            token : token
+        })
 
 })
 
@@ -102,6 +117,8 @@ const updateSchema = z.object({
     firstName : z.string().optional(),
     lastName : z.string().optional()
 })
+
+
 router.put("/", authMiddleware ,async (req,res)=>{
 
     const {success} = updateSchema.safeParse(req.body)
@@ -126,6 +143,30 @@ router.put("/", authMiddleware ,async (req,res)=>{
         message: "Updated successfully"
     })
 
+
+})
+
+router.get("/bulk", authMiddleware ,async (req,res)=>{
+
+    const filter = req.query.filter || "";
+
+    const result = await User.find({
+        $or : [ {
+            firstName : { "$regex" : filter, "$options": "i" }
+        },{
+            lastName : { "$regex" : filter, "$options": "i"}
+        }]
+
+    })
+
+    res.json({
+        users : result.map((user)=>({
+            username : user.username,
+            firstName : user.firstName,
+            lastName : user.lastName,
+            _id : user._id
+        }))
+    })
 
 })
 

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = require('zod');
 
 await mongoose.connect('mongodb://localhost:27017/MehngaPaisa').then(()=>{
     console.log("Database Connected")
@@ -33,8 +34,23 @@ const UserSchema = new mongoose.Schema({
     }
 })
 
+const AccountSchema = new mongoose.Schema({
+    userId : {
+        type : Schema.Types.ObjectId,
+        ref : "User",
+        required : true
+    },
+    balance : {
+        type : Number,
+        required : true
+
+    }
+})
+
 const User = mongoose.model("User",UserSchema)
+const Account = mongoose.model("Account",AccountSchema)
 
 module.exports = {
-    User
+    User,
+    Account
 }
