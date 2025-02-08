@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
-const { Schema } = require('zod');
+import mongoose  from "mongoose"
 
-await mongoose.connect('mongodb://localhost:27017/MehngaPaisa').then(()=>{
+
+
+await mongoose.connect('mongodb://localhost:27017/MushkilPaisa').then(()=>{
     console.log("Database Connected")
 })
 
@@ -36,7 +37,7 @@ const UserSchema = new mongoose.Schema({
 
 const AccountSchema = new mongoose.Schema({
     userId : {
-        type : Schema.Types.ObjectId,
+        type : mongoose.Schema.Types.ObjectId,
         ref : "User",
         required : true
     },
@@ -47,10 +48,6 @@ const AccountSchema = new mongoose.Schema({
     }
 })
 
-const User = mongoose.model("User",UserSchema)
-const Account = mongoose.model("Account",AccountSchema)
+export const User = mongoose.model("User",UserSchema)
+export const Account = mongoose.model("Account",AccountSchema)
 
-module.exports = {
-    User,
-    Account
-}

@@ -1,11 +1,12 @@
-const express = require("express");
-const z = require("zod")
-const {User,Account} = require("../db");
-const jwt = require("jsonwebtoken");
-const secret = require("../config")
-const authMiddleware = require("../middleware")
+import express from "express"
+import z from "zod"
+import jwt from "jsonwebtoken"
+import secret from "../config.js"
+import authMiddleware from "../middleware.js"
+import {User,Account} from "../db.js"
 
-const router = express.Router();
+ const router = express.Router();
+
 
 const signupSchema = z.object({
     username : z.string().email(),
@@ -31,7 +32,7 @@ router.post("/signup",async (req,res)=>{
     })
 
     if(existingUser){
-        return req.status(411).json({
+        return res.status(411).json({
             message : "Email already taken."
         })
     }
@@ -67,7 +68,7 @@ router.post("/signup",async (req,res)=>{
         
 
 
-        const token = jwt.sign(userId,secret)
+        const token = jwt.sign({ id: userId.toString() },secret)
 
         res.json({
             message : `User created successfully with initial balance of Rs.${account.balance}`,
@@ -86,21 +87,21 @@ router.post("/signin",async (req,res)=>{
 
     const body = req.body;
     
-    signinSchema.safeParse(body);
+    const parsedResult = signinSchema.safeParse(body);
 
-    if(!signinSchema.success){
+    if(!parsedResult.success){
         res.status(411).json({
             message : "Incorret inputs"
         })
     }
 
-    const user = User.findOne({
+    const user = await User.findOne({
         username : body.username,
         password : body.password
     })
 
     if(user){
-        const token = jwt.sign(user._id,secret);
+        const token = jwt.sign({ id: user._id.toString() },secret);
         res.json({
             token : token
         })
@@ -136,7 +137,7 @@ router.put("/", authMiddleware ,async (req,res)=>{
     }catch(e){
         
         console.log(e)
-        return res.status(411).json({})
+        return res.status(411).json({message: "Error while updating information"})
     }
     
     res.json({
@@ -170,7 +171,5 @@ router.get("/bulk", authMiddleware ,async (req,res)=>{
 
 })
 
-module.exports = {
-    router
-}
 
+export default router;

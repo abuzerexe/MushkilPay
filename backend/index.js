@@ -1,5 +1,5 @@
-const express = require("express");
-const cors = require("cors")
+import express from "express"
+import cors from "cors"
 const port = 3000;
 
 const app = express();
@@ -7,8 +7,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const rootRouter = require("./routes")
-app.use("api/v1", rootRouter);
+import rootRouter from "./routes/index.js"
+
+app.use("/api/v1", rootRouter);
+
+
 
 
 app.listen(port,()=>{

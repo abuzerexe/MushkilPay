@@ -1,13 +1,17 @@
-import JWT_SECRET from './config';
+import JWT_SECRET from './config.js';
+import jwt from 'jsonwebtoken';
 
-const jwt = require('jsonwebtoken')
 
- function authMiddleware(req,res,next){
 
-    const authHeader = req.headers.Authorization;
+ const authMiddleware = (req,res,next) =>{
+
+    
+
+    const authHeader = req.headers.authorization
+
 
     if(!authHeader || !authHeader.startsWith("Bearer")){
-        return res.status(411).json({});
+        return res.status(411).json({message: "Authorization Failed"});
     }
 
     const token = authHeader.split(' ')[1];
@@ -15,9 +19,10 @@ const jwt = require('jsonwebtoken')
     try{
         const decoded = jwt.verify(token,JWT_SECRET);
 
-        if(decoded.userId){
+
+        if(decoded){
             
-            req.userId = decoded.userId;
+            req.userId = decoded.id;
 
             next();
 
@@ -33,6 +38,4 @@ const jwt = require('jsonwebtoken')
 
 }
 
-module.exports = {
-    authMiddleware
-}
+export default authMiddleware

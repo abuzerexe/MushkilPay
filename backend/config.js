@@ -1,3 +1,3 @@
-const JWT_SECRET = "YOUR_SECRET_KEY"
+ const JWT_SECRET = "YOUR_SECRET_KEY"
 
-module.exports = JWT_SECRET
+ export default JWT_SECRET;
