@@ -1,10 +1,11 @@
 import express from "express"
-import mongoose from "mongoose"
 import authMiddleware from "../middleware.js"
+import z from "zod"
 import { Account } from "../db.js"
 // const { default: mongoose } = require("mongoose");
 
  const router = express.Router();
+
 
 router.get("/balance", authMiddleware,async(req,res)=>{
     const userId = req.userId;
@@ -17,7 +18,20 @@ router.get("/balance", authMiddleware,async(req,res)=>{
     })
 })
 
+
+
+const transferSchema = z.number()
+
 router.post("/transfer", authMiddleware, async (req, res) => {
+
+    const {success} = transferSchema.safeParse(req.body.amount);
+
+    if(!success){
+        return res.status(400).json({
+            message : "Give valid Inputs"
+        })
+    }
+
     const { amount, to } = req.body;
 
     const account = await Account.findOne({
