@@ -29,7 +29,7 @@ export default function Signin(){
                     console.log(response.data.name)
                         localStorage.removeItem("token")
                         localStorage.setItem("token","Bearer "+response.data.token)
-                        navigate("/dashboard?name="+response.data.name)
+                        navigate("/dashboard?userName="+response.data.name+"&userId="+response.data.id)
                 }catch(e){
                     console.log(e.response.data.message);
                 }

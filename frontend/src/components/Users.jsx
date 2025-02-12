@@ -36,30 +36,39 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 function User({user}) {
 
-    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const account = searchParams.get("name")
+    const userId = searchParams.get("userId")
 
-    return <div className="flex justify-between ">
-        <div className="flex">
-            <div className=" rounded-full h-9 w-9 bg-slate-200 flex justify-center ml-1 mt-2.5 mr-3">
-                <div className="flex flex-col justify-center h-full text-xl">
-                    {user.firstName[0]}
+    if(user._id == userId){
+        return <div></div>
+    }else{
+        const navigate = useNavigate();
+        const [searchParams] = useSearchParams();
+        const userName = searchParams.get("userName")
+    
+    
+        return <div className="flex justify-between ">
+            <div className="flex">
+                <div className=" rounded-full h-9 w-9 bg-slate-200 flex justify-center ml-1 mt-2.5 mr-3">
+                    <div className="flex flex-col justify-center h-full text-xl">
+                        {user.firstName[0]}
+                    </div>
+                </div>
+                <div className=" font-['Poppins'] text-lg font-bold flex flex-col justify-center h-ful">
+                    <div>
+                        {user.firstName} {user.lastName}
+                    </div>
                 </div>
             </div>
-            <div className=" font-['Poppins'] text-lg font-bold flex flex-col justify-center h-ful">
-                <div>
-                    {user.firstName} {user.lastName}
-                </div>
+    
+            <div className="flex flex-col justify-center h-ful">
+                <Button onClick={()=>{
+                    navigate("/send?id="+user._id+"&name="+user.firstName+" "+user.lastName+"&userName="+userName+"&userId="+userId)
+                }} label={"Send Money"} />
             </div>
         </div>
-
-        <div className="flex flex-col justify-center h-ful">
-            <Button onClick={()=>{
-                navigate("/send?id="+user._id+"&name="+user.firstName+" "+user.lastName+"&account="+account)
-            }} label={"Send Money"} />
-        </div>
-    </div>
+    }
+  
 }
 
 export default Users;

@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom"
 export default function Appbar(){
 
     const [searchParams] = useSearchParams();
-    const name = searchParams.get("name")
+    const userName = searchParams.get("userName")
 
 
     return <div className="shadow-sm h-16 flex justify-between">
@@ -12,11 +12,11 @@ export default function Appbar(){
     </div>
     <div className="flex">
         <div className=" font-['Poppins'] flex flex-col justify-center h-full mr-3 text-xl font-medium">
-            Hello, {name}
+            Hello, {userName}
         </div>
         <div className="rounded-full h-10 w-10 bg-slate-200 flex justify-center mt-3 mr-4">
             <div className="flex flex-col justify-center h-full text-xl">
-                {name[0].toUpperCase()}
+                {userName[0].toUpperCase()}
             </div>
         </div>
     </div>

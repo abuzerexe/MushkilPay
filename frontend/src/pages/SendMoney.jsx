@@ -11,7 +11,9 @@ export default function SendMoney(){
     const [searchParams] = useSearchParams();
     const id = searchParams.get("id");
     const name = searchParams.get("name");
-    const account = searchParams.get("account");
+    const userName = searchParams.get("userName");
+    const userId = searchParams.get("userId")
+
 
 
     return <div className="flex justify-center h-screen bg-[#c2cedb]">
@@ -57,7 +59,7 @@ export default function SendMoney(){
                                     }
                                 }).then((response)=>{
                                     console.log(response.data.message)
-                                    navigate("/dashboard?name="+account)
+                                    navigate("/dashboard?userName="+userName+"&userId="+userId)
 
                                 })
                             }catch(e){
@@ -68,7 +70,7 @@ export default function SendMoney(){
                             Initiate Transfer
                         </button>
                         <button onClick={()=>{
-                            navigate("/dashboard?name="+account)
+                            navigate("/dashboard?userName="+userName+"&userId="+userId)
 
                         }} type="button" className=" w-full text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm  py-2.5  mb-1 ">{"Back"}</button>
                     </div>
