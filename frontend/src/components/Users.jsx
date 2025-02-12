@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import  Button  from "./Button";
 import axios from "axios";
+import { useNavigate, useSearchParams } from 'react-router-dom';
+
+
 
  function Users () {
-    // Replace with backend call
+    
+    
     const [users, setUsers] = useState([]);
     const [filter, setFilter] = useState("")
+
 
     useEffect(()=>{
          axios.get("http://localhost:3000/api/v1/user/bulk?filter="+ filter,{ headers: { 'Authorization': localStorage.getItem("token") } }).then((response)=>{
@@ -30,6 +35,11 @@ import axios from "axios";
 }
 
 function User({user}) {
+
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const account = searchParams.get("name")
+
     return <div className="flex justify-between ">
         <div className="flex">
             <div className=" rounded-full h-9 w-9 bg-slate-200 flex justify-center ml-1 mt-2.5 mr-3">
@@ -45,7 +55,9 @@ function User({user}) {
         </div>
 
         <div className="flex flex-col justify-center h-ful">
-            <Button label={"Send Money"} />
+            <Button onClick={()=>{
+                navigate("/send?id="+user._id+"&name="+user.firstName+" "+user.lastName+"&account="+account)
+            }} label={"Send Money"} />
         </div>
     </div>
 }

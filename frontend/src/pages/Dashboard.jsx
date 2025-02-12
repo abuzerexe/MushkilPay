@@ -10,7 +10,7 @@ export default function Dashboard(){
 
     return(
         <div>
-            <Appbar fname={"Abuzer"} fletter={"A"}/>
+            <Appbar />
             <div className="m-6">
             <Balance />
             <Users/>
