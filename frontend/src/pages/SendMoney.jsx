@@ -1,7 +1,7 @@
 
 export default function SendMoney(){
 
-    return <div class="flex justify-center h-screen bg-[#7f7f7f]">
+    return <div class="flex justify-center h-screen bg-[#c2cedb]">
         <div className="h-full flex flex-col justify-center">
             <div
                 className=" p-4 space-y-5 w-110 bg-white shadow-2xl rounded-lg"
