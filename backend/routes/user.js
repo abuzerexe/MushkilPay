@@ -9,10 +9,10 @@ import {User,Account} from "../db.js"
 
 
 const signupSchema = z.object({
-    username : z.string().email(),
-    password: z.string(),
-    firstName : z.string(),
-    lastName : z.string()
+    username : z.string().email().min(3),
+    password: z.string().min(5),
+    firstName : z.string().min(3),
+    lastName : z.string().min(3)
 })
 
 router.post("/signup",async (req,res)=>{
@@ -22,7 +22,7 @@ router.post("/signup",async (req,res)=>{
 
         if(!ans.success){
             return res.status(411).json({
-                message : "Invalid Inputs"
+                message : "Invalid Inputs. Try Again."
             })
         }
 
@@ -47,7 +47,7 @@ router.post("/signup",async (req,res)=>{
 
         if(!user){
             return res.status(411).json({
-                message: "Error"
+                message: "Error occured. Try Again."
             })
         }
 
@@ -62,7 +62,7 @@ router.post("/signup",async (req,res)=>{
 
         if(!account){
             return res.status(411).json({
-                message: "Error"
+                message: "Error occured. Try Again."
             })
         }
         
@@ -71,7 +71,7 @@ router.post("/signup",async (req,res)=>{
         const token = jwt.sign({ id: userId.toString() },secret)
 
         res.json({
-            message : `User created successfully with initial balance of Rs.${account.balance}`,
+            message : `Account Created successfully. `,
             token : token
         })
 
@@ -90,8 +90,8 @@ router.post("/signin",async (req,res)=>{
     const parsedResult = signinSchema.safeParse(body);
 
     if(!parsedResult.success){
-        res.status(411).json({
-            message : "Incorret inputs"
+        return res.status(411).json({
+            message : "Incorret inputs. Try again"
         })
     }
 
@@ -102,12 +102,12 @@ router.post("/signin",async (req,res)=>{
 
     if(user){
         const token = jwt.sign({ id: user._id.toString() },secret);
-        res.json({
+        return res.json({
             token : token
         })
     }else{
-        res.status(411).json({
-            message : "Error while logging in."
+        return res.status(411).json({
+            message : "Incorrect Email or Password. Try Again"
         })
     }
 })
