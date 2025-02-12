@@ -1,35 +1,30 @@
-import { useState } from "react"
-import  Button  from "./Button"
+import { useEffect, useState } from "react";
+import  Button  from "./Button";
+import axios from "axios";
 
  function Users () {
     // Replace with backend call
-    const [users, setUsers] = useState([{
-        firstName: "Abuzer",
-        lastName: "Zia",
-        _id: 1
-    },{
-        firstName: "Siraj",
-        lastName: "Kazim",
-        _id: 2
-    },{
-        firstName: "Saad",
-        lastName: "Tiwana",
-        _id: 1
-    },{
-        firstName: "Faizan",
-        lastName: "Ahmed",
-        _id: 1
-    }]);
+    const [users, setUsers] = useState([]);
+    const [filter, setFilter] = useState("")
+
+    useEffect(()=>{
+         axios.get("http://localhost:3000/api/v1/user/bulk?filter="+ filter,{ headers: { 'Authorization': localStorage.getItem("token") } }).then((response)=>{
+
+             setUsers(response.data.users)
+         })
+    },[filter])
 
     return <>
         <div className=" font-['Poppins'] font-semibold mt-7 text-xl">
             Users
         </div>
         <div className="my-4">
-            <input type="text" placeholder="Search users..." className="w-full px-2 py-1.5 border rounded border-slate-200"></input>
+            <input onChange={(e)=>{
+                setFilter(e.target.value)
+            }} type="text" placeholder="Search users..." className="w-full px-2 py-1.5 border rounded border-slate-200"></input>
         </div>
         <div>
-            {users.map(user => <User user={user} />)}
+            {users.map(user => <User key={user._id} user={user} />)}
         </div>
     </>
 }

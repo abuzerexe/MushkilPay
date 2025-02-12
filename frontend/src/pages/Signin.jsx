@@ -27,7 +27,6 @@ export default function Signin(){
                         password
                     })
                         localStorage.removeItem("token")
-                        console.log(response.data.token)
                         localStorage.setItem("token","Bearer "+response.data.token)
                         navigate("/dashboard")
                 }catch(e){
