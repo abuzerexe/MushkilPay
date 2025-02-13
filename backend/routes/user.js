@@ -68,7 +68,7 @@ router.post("/signup",async (req,res)=>{
         
 
 
-        const token = jwt.sign({ id: userId.toString() },secret)
+        const token = jwt.sign({ id: userId.toString() , userName : user.firstName},secret)
 
         res.json({
             message : `Account Created successfully. `,
@@ -101,7 +101,7 @@ router.post("/signin",async (req,res)=>{
     })
 
     if(user){
-        const token = jwt.sign({ id: user._id.toString() },secret);
+        const token = jwt.sign({ id: user._id.toString(),userName:user.firstName },secret);
         return res.json({
             name : user.firstName,
             token : token,
@@ -173,5 +173,13 @@ router.get("/bulk", authMiddleware ,async (req,res)=>{
 
 })
 
+
+router.get("/me",authMiddleware,(req,res)=>{
+    return res.json({
+        message : "Success",
+        userName : req.userName,
+        userId : req.userId
+    })
+})
 
 export default router;

@@ -23,6 +23,7 @@ import jwt from 'jsonwebtoken';
         if(decoded){
             
             req.userId = decoded.id;
+            req.userName = decoded.userName
 
             next();
 
