@@ -26,7 +26,6 @@ export default function Signin(){
                         username,
                         password
                     })
-                    console.log(response.data.name)
                         localStorage.removeItem("token")
                         localStorage.setItem("token","Bearer "+response.data.token)
                         navigate("/dashboard?userName="+response.data.name+"&userId="+response.data.id)

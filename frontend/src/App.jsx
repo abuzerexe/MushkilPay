@@ -3,6 +3,8 @@ import Signup from "./pages/Signup"
 import Signin from "./pages/Signin"
 import Dashboard from "./pages/Dashboard"
 import SendMoney from "./pages/SendMoney"
+import Redirecting from "./pages/Redirecting"
+import ResultSuccess from "./pages/ResultSuccess"
 
 
 
@@ -11,6 +13,8 @@ function App() {
   return (
     <BrowserRouter>
      <Routes>
+       <Route path="/success" element={<ResultSuccess/>}/>
+       <Route path="/" element={<Redirecting/>}/>
        <Route path="/signup" element={<Signup/>}/>
       <Route path="/signin" element={<Signin/>}/>
       <Route path="/dashboard" element={<Dashboard/>}/>

@@ -1,5 +1,4 @@
 import axios from "axios";
-import Button from '../components/Button';
 import { useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom";
 
@@ -59,9 +58,11 @@ export default function SendMoney(){
                                     }
                                 }).then((response)=>{
                                     console.log(response.data.message)
-                                    navigate("/dashboard?userName="+userName+"&userId="+userId)
+                                    
+                                    navigate("/success?userName="+userName+"&userId="+userId)
 
                                 })
+
                             }catch(e){
                                 console.log(e.response.data.message)
                             }
