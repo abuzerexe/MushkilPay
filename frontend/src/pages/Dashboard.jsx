@@ -10,7 +10,7 @@ export default function Dashboard(){
     
 
     return(
-        <div className=" bg-[#dfe7ee] h-screen dark:bg-gray-800 dark:text-white transition-colors duration-300">
+        <div className=" dark:bg-gray-800 dark:text-white transition-colors duration-300 h-screen">
             <Appbar />
             <div className="m-6">
             <Balance />
