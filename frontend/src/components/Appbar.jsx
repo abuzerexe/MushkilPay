@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom"
+import DarkModeToggle from "./DarkModeToggle";
 
 export default function Appbar(){
 
@@ -7,19 +8,21 @@ export default function Appbar(){
 
 
     return <div className="shadow-sm h-16 flex justify-between">
-    <div className=" font-['Poppins'] flex flex-col justify-center h-full ml-5 text-2xl font-bold">
+    <div className=" font-['Poppins'] flex flex-col justify-center h-full ml-5 text-2xl font-bold ">
         Mushkil Pay
     </div>
-    <div className="flex">
+    <div className="flex ">
         <div className=" font-['Poppins'] flex flex-col justify-center h-full mr-3 text-xl font-medium">
-            Hello, {userName}
+            Hello, {userName.split(" ")[0]}
         </div>
-        <div className="rounded-full h-10 w-10 bg-slate-200 flex justify-center mt-3 mr-4">
+        <div className="rounded-full h-10 w-10 bg-slate-200 flex justify-center mt-3 mr-4 dark:bg-green-800 ">
             <div className="flex flex-col justify-center h-full text-xl">
                 {userName[0].toUpperCase()}
             </div>
         </div>
     </div>
+    
+      <DarkModeToggle />
 </div>
     
 }

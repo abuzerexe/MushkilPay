@@ -152,25 +152,29 @@ router.put("/", authMiddleware ,async (req,res)=>{
 router.get("/bulk", authMiddleware ,async (req,res)=>{
 
     const filter = req.query.filter || "";
+    const words = filter.split(" ").filter(word => word.trim() !== ""); 
+
+
+
+    const regexFilters = words.map(word => ({
+        $or: [
+            { firstName: { "$regex": word, "$options": "i" } },
+            { lastName: { "$regex": word, "$options": "i" } }
+        ]
+    }));
 
     const result = await User.find({
-        $or : [ {
-            firstName : { "$regex" : filter, "$options": "i" }
-        },{
-            lastName : { "$regex" : filter, "$options": "i"}
-        }]
-
-    })
+        $and: regexFilters // Ensure all words are present in either firstName or lastName
+    });
 
     res.json({
-        users : result.map((user)=>({
-            username : user.username,
-            firstName : user.firstName,
-            lastName : user.lastName,
-            _id : user._id
+        users: result.map(user => ({
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            _id: user._id
         }))
-    })
-
+    });
 })
 
 

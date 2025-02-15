@@ -13,13 +13,15 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 
     useEffect(()=>{
-         axios.get("http://localhost:3000/api/v1/user/bulk?filter="+ filter,{ headers: { 'Authorization': localStorage.getItem("token") } }).then((response)=>{
+         axios.get(`http://localhost:3000/api/v1/user/bulk?filter=${encodeURIComponent(filter)}`,{ headers: { 'Authorization': localStorage.getItem("token") } }).then((response)=>{
+            console.log(encodeURIComponent(filter))
 
              setUsers(response.data.users)
+
          })
     },[filter])
 
-    return <>
+    return <div>
         <div className=" font-['Poppins'] font-semibold mt-7 text-xl">
             Users
         </div>
@@ -31,7 +33,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
         <div>
             {users.map(user => <User key={user._id} user={user} />)}
         </div>
-    </>
+    </div>
 }
 
 function User({user}) {
@@ -49,9 +51,9 @@ function User({user}) {
     
         return <div className="flex justify-between ">
             <div className="flex">
-                <div className=" rounded-full h-9 w-9 bg-slate-200 flex justify-center ml-1 mt-2.5 mr-3">
-                    <div className="flex flex-col justify-center h-full text-xl">
-                        {user.firstName[0]}
+                <div className=" rounded-full h-9 w-9 bg-slate-200 flex justify-center ml-1 mt-2.5 mr-3 dark:bg-green-800 ">
+                    <div className="flex flex-col justify-center h-full text-xl ">
+                        {user.firstName[0].toUpperCase()}
                     </div>
                 </div>
                 <div className=" font-['Poppins'] text-lg font-bold flex flex-col justify-center h-ful">

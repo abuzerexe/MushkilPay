@@ -5,7 +5,7 @@ export default function BottomWarning({label, buttonText, to}) {
       <div>
         {label}
       </div>
-      <Link className="pointer underline pl-1 cursor-pointer text-blue-950" to={to}>
+      <Link className="pointer underline pl-1 cursor-pointer text-blue-950 dark:text-white" to={to}>
         {buttonText}
       </Link>
     </div>
