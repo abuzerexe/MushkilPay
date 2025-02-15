@@ -6,6 +6,8 @@ import BottomWarning from '../components/BottomWarning';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Appbar2 from '../components/Appbar2';
+
 
 export default function Signup(){
 
@@ -16,9 +18,11 @@ export default function Signup(){
 
     const navigate = useNavigate();
 
-    return <div className='bg-[#c2cedb] h-screen flex justify-center' >
+    return <div>
+            <Appbar2/>
+    <div className='bg-gray-400  dark:bg-[#121826]  h-screen flex justify-center transition-colors duration-300' >
         <div className='flex flex-col justify-center'>
-        <div className='bg-white rounded-lg h-max text-center p-2 px-4'>
+        <div className='bg-white  dark:bg-gray-800 dark:text-white rounded-lg h-max text-center p-2 px-4'>
         <Heading label={"Sign Up"}/>
         <SubHeading text={"Enter your information to create an account"} />
         <InputBox onChange={(e)=>{
@@ -49,5 +53,6 @@ export default function Signup(){
         <BottomWarning label={"Already have an account?"} buttonText={"Sign In"} to={"/signin"}/>
         </div>
         </div>
+    </div>
     </div>
 }
