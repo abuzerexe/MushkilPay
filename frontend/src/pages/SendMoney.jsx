@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Appbar2 from "../components/Appbar2";
 
+
 export default function SendMoney(){
 
     const navigate = useNavigate()
@@ -17,7 +18,7 @@ export default function SendMoney(){
 
 
     return(<div>
-    <Appbar2/>
+    <Appbar2 />
     <div className="flex justify-center h-screen bg-gray-400 dark:bg-gray-900 transition-colors duration-300 ">
         <div className="h-full flex flex-col justify-center">
             <div
@@ -41,7 +42,7 @@ export default function SendMoney(){
                         >
                             Amount (in Rs)
                         </label>
-                        <input onChange={(e)=>{
+                        <input  onChange={(e)=>{
                             setAmount(e.target.value)
                         }}
                             type="number"
