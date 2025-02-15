@@ -28,7 +28,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
         <div className="my-4">
             <input onChange={(e)=>{
                 setFilter(e.target.value)
-            }} type="text" placeholder="Search users..." className="w-full px-2 py-1.5 border rounded border-slate-200"></input>
+            }} type="text" placeholder="Search users..." className="w-full px-2 py-1.5 border rounded dark:border-slate-200 placeholder:text-black dark:placeholder:text-white"></input>
         </div>
         <div>
             {users.map(user => <User key={user._id} user={user} />)}
@@ -51,7 +51,7 @@ function User({user}) {
     
         return <div className="flex justify-between ">
             <div className="flex">
-                <div className=" rounded-full h-9 w-9 bg-slate-200 flex justify-center ml-1 mt-2.5 mr-3 dark:bg-green-800 ">
+                <div className=" rounded-full h-9 w-9 bg-slate-300 flex justify-center ml-1 mt-2.5 mr-3 dark:bg-green-800 ">
                     <div className="flex flex-col justify-center h-full text-xl ">
                         {user.firstName[0].toUpperCase()}
                     </div>

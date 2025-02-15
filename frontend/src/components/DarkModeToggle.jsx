@@ -32,7 +32,7 @@ export default function DarkModeToggle(){
         <button onClick={()=>{
             setDarkMode(!darkMode)
         }}             className={` border-2 mr-5 p-4 rounded-full transition-colors duration-300 ${
-            darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'
+            darkMode ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black'
         }`}>
             {
                 darkMode ? (<  SunIcon className="w-6 h-6 text-yellow-400"/>) : (<MoonIcon className="w-6 h-6 text-gray-800 dark:text-gray-800"/>)

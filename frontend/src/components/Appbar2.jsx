@@ -1,5 +1,6 @@
 import DarkModeToggle from "./DarkModeToggle";
 
+
 export default function Appbar2(){
 
 
@@ -8,7 +9,7 @@ export default function Appbar2(){
         Mushkil Pay
     </div>
     
-      <DarkModeToggle />
+      
 </div>
     
 }
