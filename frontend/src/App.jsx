@@ -5,22 +5,25 @@ import Dashboard from "./pages/Dashboard"
 import SendMoney from "./pages/SendMoney"
 import Redirecting from "./pages/Redirecting"
 import ResultSuccess from "./pages/ResultSuccess"
+import { ThemeProvider } from "./providers/ThemeProvider"
 
 
 
 function App() {
 
   return (
-    <BrowserRouter>
-     <Routes>
-       <Route path="/success" element={<ResultSuccess/>}/>
-       <Route path="/" element={<Redirecting/>}/>
-       <Route path="/signup" element={<Signup/>}/>
-      <Route path="/signin" element={<Signin/>}/>
-      <Route path="/dashboard" element={<Dashboard/>}/>
-      <Route path="/send" element={<SendMoney/>}/> 
-    </Routes> 
-  </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/success" element={<ResultSuccess/>}/>
+          <Route path="/" element={<Redirecting/>}/>
+          <Route path="/signup" element={<Signup/>}/>
+          <Route path="/signin" element={<Signin/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/send" element={<SendMoney/>}/> 
+        </Routes> 
+    </BrowserRouter>
+  </ThemeProvider>
   
   )
 }
