@@ -21,8 +21,8 @@ export default function Signin(){
         <div className='bg-white dark:bg-gray-800 dark:text-white  rounded-lg h-max text-center p-2 px-4'>
         <Heading label={"Sign In"}/>
         <SubHeading text={"Enter your credentials to access your account"} />
-        <InputBox onChange={e=>setUsername(e.target.value)} label={"Email"} placeholder={"johndoe@example.com"}/>
-        <InputBox onChange={e=>setPassword(e.target.value)} label={"Password"} />
+        <InputBox type={"email"} onChange={e=>setUsername(e.target.value)} label={"Email"} placeholder={"johndoe@example.com"}/>
+        <InputBox type={"password"} onChange={e=>setPassword(e.target.value)} label={"Password"} />
         <Button onClick={async ()=>{
                 try{
                     const response = await axios.post("http://localhost:3000/api/v1/user/signin",{
