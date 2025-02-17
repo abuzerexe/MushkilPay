@@ -60,11 +60,13 @@ MushkilPay/
 │   ├── index.js  #  server
 │   ├── routes/   # API routes
 │   ├── middleware/   # middlewares
-├── frontend/     # React frontend
+│   ├── package.json
+├── frontend/     # frontend(React,Tailwind)
 │   ├── src/
 |   │   ├── components # components
 |   │   ├── pages # pages
 |   │   ├── provider # provider
+|   │   ├── App.jsx # App
 │   ├── package.json
 └── README.md
 ```
