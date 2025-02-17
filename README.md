@@ -1,4 +1,4 @@
-# MushkilPay
+# Mushkil Pay
 
 MushkilPay is a **mini Paytm-like** project built using the **MERN stack** (MongoDB, Express.js, React, Node.js) and **Tailwind**. While it lacks many advanced features, it serves as a foundational project for learning full-stack development and implementing a basic money transfer system.
 
